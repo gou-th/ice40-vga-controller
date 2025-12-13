@@ -39,7 +39,7 @@ VGA timing logic was first validated using Digital (simulation software) to conf
 - Sync pulse timing
 - Active display window alignment
 
-Reference: [`digital/`](./digital)
+Reference: [`Digital`](./digital)
 
 ---
 
@@ -57,8 +57,8 @@ The design is implemented in SystemVerilog and organized into modular components
   Testbench providing clock generation and waveform-level verification
 
 Reference: 
-- RTL: [`systemverilog/`](./systemverilog/rtl)
-- Simulation: [`systemverilog/`](./systemverilog/sim)
+- RTL: [`RTL`](./systemverilog/rtl)
+- Simulation: [`Simulation & Waveform`](./systemverilog/sim)
 
 ---
 
@@ -79,14 +79,22 @@ A complete **4-layer PCB** was designed to host the VGA controller using iCE40HX
 - VGA resistor ladder DAC placed close to FPGA outputs
 
 Reference: 
-- Schematic: [`systemverilog/`](./systemverilog/schematic)
-- PCB routing: [`systemverilog/`](./systemverilog/pcb)
+- Schematic: [`Schematic`](./kicad/schematic)
+- PCB routing: [`PCB`](./kicad/pcb)
+- Gerber files: [`Gerber`](./kicad/gerber)
 
 ---
 
 ## 3D PCB View
 
 <img width="3198" height="1806" alt="vga_3d_1" src="https://github.com/user-attachments/assets/25bc57f5-51db-4a89-864a-cd8d1c167256" />
+
+
+<img width="3198" height="1806" alt="vga_3d_2" src="https://github.com/user-attachments/assets/0022020d-13de-41d6-8f03-79892f518bf2" />
+
+
+<img width="3198" height="1806" alt="vga_3d_back" src="https://github.com/user-attachments/assets/082bd2ed-8aa0-4956-9452-a7c5eca5b33d" />
+
 
 
 The 3D view shows the final component placement, orientation and final form factor. Main focus was to make the board as compact as possible.
