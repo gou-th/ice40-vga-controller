@@ -1,20 +1,18 @@
 # ice40-vga-controller
 
-A custom FPGA-based VGA video controller implemented from first principles, spanning digital logic design, SystemVerilog RTL simulation, and a complete 4-layer PCB implementation targeting the Lattice iCE40 FPGA family.
+A custom FPGA-based VGA video controller implemented from first principles, spanning digital logic design, SystemVerilog RTL simulation and a complete 4-layer PCB implementation of iCE40HX1K.
 
 ---
 
 ## Overview
 
-This project implements a minimal VGA video controller capable of generating valid VGA timing signals and RGB pixel data without relying on vendor-provided IP cores. The design is structured to reflect a realistic hardware development flow, progressing from logic validation to RTL design and finally to a manufacturable PCB layout.
-
-The focus of the project is on **signal correctness, modular design, and hardware-aware implementation**, rather than software abstraction.
+This project implements a minimal VGA video controller capable of generating valid VGA timing signals and RGB pixel data without relying on IP cores. The design is structured to reflect a realistic hardware development flow, progressing from logic validation to RTL design and finally to a manufacturable PCB layout.
 
 ---
 
 ## Design Architecture
 
-The VGA controller is composed of three major functional layers:
+THhe project is composed of three major functional layers:
 
 ### 1. VGA Timing Generation
 - Horizontal and vertical counters generate standard VGA timing
@@ -24,7 +22,7 @@ The VGA controller is composed of three major functional layers:
 ### 2. Pixel Generation
 - RGB pixel values are generated based on current pixel coordinates
 - A simple scrolling color-bar pattern is implemented
-- Color depth is 4 bits per channel (RGB444)
+- Color depth is 4 bits per channel
 
 ### 3. Hardware Output
 - Digital RGB signals are converted to analog VGA levels using a resistor ladder DAC
@@ -35,13 +33,13 @@ The VGA controller is composed of three major functional layers:
 
 ## Implementation Flow
 
-### Digital Logic Validation
-The core VGA timing logic was first validated using logic-level simulation to confirm:
+### Digital Logic
+VGA timing logic was first validated using Digital (simulation software) to confirm:
 - Counter rollover behavior
 - Sync pulse timing
 - Active display window alignment
 
-📂 Reference: [`digital/`](./digital)
+Reference: [`digital/`](./digital)
 
 ---
 
@@ -58,43 +56,39 @@ The design is implemented in SystemVerilog and organized into modular components
 - `vga_timing_tb.sv`  
   Testbench providing clock generation and waveform-level verification
 
-Simulation verifies:
-- HSYNC / VSYNC timing
-- Active video region
-- RGB output behavior over time
-
-📂 Reference: [`systemverilog/`](./systemverilog)
+Reference: 
+- RTL: [`systemverilog/`](./systemverilog/rtl)
+- Simulation: [`systemverilog/`](./systemverilog/sim)
 
 ---
 
 ### PCB Design (KiCad)
 
-A complete **4-layer PCB** was designed to host the VGA controller:
+A complete **4-layer PCB** was designed to host the VGA controller using iCE40HX1K
 
 **Layer stackup**
 - Top layer: Signal routing
 - Inner layer 1: Solid ground plane
-- Inner layer 2: Power planes (3.3 V, FPGA core voltage)
+- Inner layer 2: Power planes
 - Bottom layer: Signal routing
 
 **Key hardware features**
-- Lattice iCE40 FPGA (TQFP package)
+- Lattice iCE40HX1K FPGA
 - Dedicated power planes for core and I/O voltages
 - Local decoupling for all FPGA power pins
 - VGA resistor ladder DAC placed close to FPGA outputs
-- Fully routed and DRC-clean layout
 
-📂 Reference: [`kicad/`](./kicad)
+Reference: 
+- Schematic: [`systemverilog/`](./systemverilog/schematic)
+- PCB routing: [`systemverilog/`](./systemverilog/pcb)
 
 ---
 
 ## 3D PCB View
 
-> *(Insert KiCad 3D render image here)*
+<img width="3198" height="1806" alt="vga_3d_1" src="https://github.com/user-attachments/assets/25bc57f5-51db-4a89-864a-cd8d1c167256" />
 
-The 3D view illustrates final component placement, connector orientation, and overall board form factor.
 
----
+The 3D view shows the final component placement, orientation and final form factor. Main focus was to make the board as compact as possible.
 
-## Repository Structure
 
