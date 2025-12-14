@@ -1,12 +1,12 @@
 # ice40-vga-controller
 
-A custom FPGA-based VGA video controller implemented from first principles, spanning digital logic design, SystemVerilog RTL simulation and a complete 4-layer PCB implementation of iCE40HX1K.
+A custom FPGA-based VGA video controller implemented at a resolution of 640x480 @ 60Hz, spanning digital logic design, SystemVerilog RTL simulation and a complete 4-layer PCB implementation of iCE40HX1K.
 
 ---
 
 ## Overview
 
-This project implements a minimal VGA video controller capable of generating valid VGA timing signals and RGB pixel data without relying on IP cores. The design is structured to reflect a realistic hardware development flow, progressing from logic validation to RTL design and finally to a manufacturable PCB layout.
+This project implements a minimal VGA video controller capable of generating valid VGA timing signals and RGB pixel data at a resolution of 649x480 @ 60Hz without relying on IP cores. The design is structured to reflect a realistic hardware development flow, progressing from logic validation to RTL design and finally to a manufacturable PCB layout.
 
 ---
 
