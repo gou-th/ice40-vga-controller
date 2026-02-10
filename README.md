@@ -93,6 +93,7 @@ References:
 
 ### Folder Structure
 
+<pre>
 ice40-vga-controller/
 ├── digital/                # VGA timing validation using Digital simulation tool
 ├── systemverilog/
@@ -103,3 +104,4 @@ ice40-vga-controller/
 │   ├── pcb/                # PCB layout files
 │   └── gerber/             # Manufacturing Gerber files
 └── README.md
+</pre>
