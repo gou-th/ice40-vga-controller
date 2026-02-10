@@ -94,14 +94,13 @@ References:
 ### Folder Structure
 
 ice40-vga-controller/
-├── digital/                                   # Timing validation using Digital simulation tool
+├── digital/                # VGA timing validation using Digital simulation tool
 ├── systemverilog/
-│ ├── rtl/                                     # SystemVerilog RTL modules
-│ └── sim/                                     # Testbench and simulation files
+│   ├── rtl/                # SystemVerilog RTL source files
+│   └── sim/                # Testbench and simulation files
 ├── kicad/
-│ ├── schematic/                               # Circuit schematics
-│ ├── pcb/                                     # PCB layout files
-│ └── gerber/                                  # Manufacturing Gerber files
+│   ├── schematic/          # Circuit schematics
+│   ├── pcb/                # PCB layout files
+│   └── gerber/             # Manufacturing Gerber files
 └── README.md
-
 
