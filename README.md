@@ -103,4 +103,3 @@ ice40-vga-controller/
 │   ├── pcb/                # PCB layout files
 │   └── gerber/             # Manufacturing Gerber files
 └── README.md
-
