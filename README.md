@@ -1,102 +1,107 @@
 # ice40-vga-controller
 
-A custom FPGA-based VGA video controller implemented at a resolution of 640x480 @ 60Hz, spanning digital logic design, SystemVerilog RTL simulation and a complete 4-layer PCB implementation of iCE40HX1K.
+A custom FPGA-based VGA controller designed for **640×480 @ 60 Hz**, implementing VGA timing generation, pixel logic and a **4-layer PCB** using the **Lattice iCE40HX1K** FPGA.
 
 ---
 
 ## Overview
 
-This project implements a minimal VGA video controller capable of generating valid VGA timing signals and RGB pixel data at a resolution of 640x480 @ 60Hz without relying on IP cores. The design is structured to reflect a realistic hardware development flow, progressing from logic validation to RTL design and finally to a manufacturable PCB layout.
+This project implements a minimal yet fully functional VGA video controller without using vendor IP cores. The design follows a complete hardware development flow, starting from logic validation and RTL simulation to a manufacturable multilayer PCB.
+
+The controller generates standard VGA sync signals and RGB video output compatible with conventional VGA displays.
 
 ---
 
-## Design Architecture
+## Architecture
 
-THhe project is composed of three major functional layers:
+The system is divided into three main functional blocks:
 
-### 1. VGA Timing Generation
-- Horizontal and vertical counters generate standard VGA timing
-- HSYNC and VSYNC signals follow VGA polarity and pulse width requirements
-- Active video region detection is derived directly from counter values
+### VGA Timing Generation
 
-### 2. Pixel Generation
-- RGB pixel values are generated based on current pixel coordinates
-- A simple scrolling color-bar pattern is implemented
-- Color depth is 4 bits per channel
+* Horizontal and vertical pixel counters
+* HSYNC and VSYNC pulse generation
+* Active video region detection based on VGA timing parameters
 
-### 3. Hardware Output
-- Digital RGB signals are converted to analog VGA levels using a resistor ladder DAC
-- VGA DE-15 connector provides standard monitor interface
-- FPGA I/O banks are powered from a 3.3 V rail with proper decoupling
+### Pixel Generation
+
+* RGB pixel values derived from current pixel coordinates
+* Simple scrolling color-bar test pattern
+* 4-bit color depth per RGB channel
+
+### Hardware Output
+
+* Digital RGB converted to analog VGA levels using a resistor ladder DAC
+* Standard DE-15 VGA connector interface
+* FPGA I/O powered at 3.3 V with proper decoupling
 
 ---
 
 ## Implementation Flow
 
-### Digital Logic
-VGA timing logic was first validated using Digital (simulation software) to confirm:
-- Counter rollover behavior
-- Sync pulse timing
-- Active display window alignment
+### Logic Validation
+
+Initial VGA timing was verified using Digital simulation software to confirm counter behavior, sync pulse timing and active display window alignment.
 
 Reference: [`Digital`](./digital)
 
----
+### RTL Design and Simulation
 
-### RTL Design and Simulation (SystemVerilog)
+The design is implemented in SystemVerilog using a modular structure:
 
-The design is implemented in SystemVerilog and organized into modular components:
+* [`vga_timing.sv`](./systemverilog/rtl/vga_timing.sv) – VGA timing and sync generation
+* [`vga_pixel_gen.sv`](./systemverilog/rtl/vga_pixel_gen.sv) – RGB pixel generation
+* [`vga_timing_tb.sv`](./systemverilog/rtl/vga_timing_tb.sv) – Testbench for waveform-level verification
 
-- `vga_timing.sv`  
-  Generates VGA timing signals and pixel counters
+References:
 
-- `vga_pixel_gen.sv`  
-  Produces RGB pixel values based on pixel position
+* RTL: [`RTL`](./systemverilog/rtl)
+* Simulation: [`Simulation & Waveform`](./systemverilog/sim)
 
-- `vga_timing_tb.sv`  
-  Testbench providing clock generation and waveform-level verification
+### PCB Design
 
-Reference: 
-- RTL: [`RTL`](./systemverilog/rtl)
-- Simulation: [`Simulation & Waveform`](./systemverilog/sim)
+A complete 4-layer PCB was designed in KiCad to host the VGA controller.
 
----
+Layer stackup:
 
-### PCB Design (KiCad)
+* Top: Signal routing
+* Inner 1: Ground plane
+* Inner 2: Power planes
+* Bottom: Signal routing
 
-A complete **4-layer PCB** was designed to host the VGA controller using iCE40HX1K
+Key hardware features:
 
-**Layer stackup**
-- Top layer: Signal routing
-- Inner layer 1: Solid ground plane
-- Inner layer 2: Power planes
-- Bottom layer: Signal routing
+* Lattice iCE40HX1K FPGA
+* Dedicated core and I/O power planes
+* Local decoupling on all power pins
+* VGA DAC placed close to FPGA outputs
 
-**Key hardware features**
-- Lattice iCE40HX1K FPGA
-- Dedicated power planes for core and I/O voltages
-- Local decoupling for all FPGA power pins
-- VGA resistor ladder DAC placed close to FPGA outputs
+References:
 
-Reference: 
-- Schematic: [`Schematic`](./kicad/schematic)
-- PCB routing: [`PCB`](./kicad/pcb)
-- Gerber files: [`Gerber`](./kicad/gerber)
+* Schematic:  [`Schematic`](./kicad/schematic)
+* PCB: [`PCB`](./kicad/pcb)
+* Gerbers: [`Gerber`](./kicad/gerber)
 
 ---
 
 ## 3D PCB View
 
-<img width="3198" height="1806" alt="vga_3d_1" src="https://github.com/user-attachments/assets/25bc57f5-51db-4a89-864a-cd8d1c167256" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/25bc57f5-51db-4a89-864a-cd8d1c167256" width="800">
+</p>
 
+---
 
-<img width="3198" height="1806" alt="vga_3d_2" src="https://github.com/user-attachments/assets/0022020d-13de-41d6-8f03-79892f518bf2" />
+### Folder Structure
 
-
-<img width="3198" height="1806" alt="vga_3d_back" src="https://github.com/user-attachments/assets/082bd2ed-8aa0-4956-9452-a7c5eca5b33d" />
-
-
-
-The 3D view shows the final component placement, orientation and final form factor. Main focus was to make the board as compact as possible.
+ice40-vga-controller/
+├── digital/                                   # Timing validation using Digital simulation tool
+├── systemverilog/
+│ ├── rtl/                                     # SystemVerilog RTL modules
+│ └── sim/                                     # Testbench and simulation files
+├── kicad/
+│ ├── schematic/                               # Circuit schematics
+│ ├── pcb/                                     # PCB layout files
+│ └── gerber/                                  # Manufacturing Gerber files
+└── README.md
 
 
