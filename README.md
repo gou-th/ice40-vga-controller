@@ -50,7 +50,7 @@ The design is implemented in SystemVerilog using a modular structure:
 
 * [`vga_timing.sv`](./systemverilog/rtl/vga_timing.sv) – VGA timing and sync generation
 * [`vga_pixel_gen.sv`](./systemverilog/rtl/vga_pixel_gen.sv) – RGB pixel generation
-* [`vga_timing_tb.sv`](./systemverilog/rtl/vga_timing_tb.sv) – Testbench for waveform-level verification
+* [`vga_timing_tb.sv`](./systemverilog/sim/vga_timing_tb.sv) – Testbench for waveform-level verification
 
 References:
 
