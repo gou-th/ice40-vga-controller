@@ -9,6 +9,7 @@ module vga_timing(
     output logic [9:0] vcount,
     output logic vga_active
     );
+    
     logic [9:0] h_count_reg;
     logic [9:0] v_count_reg;
     logic [9:0] h_next;
@@ -16,6 +17,8 @@ module vga_timing(
     logic h_tc_signal;
     logic h_active_sig;
     logic v_active_sig;
+
+    //Horizontal counter (from 0 to 799 - 800 pixels per line)
     always_ff @(posedge clk) begin 
         if (rst) begin 
             h_count_reg<='0;
@@ -27,7 +30,8 @@ module vga_timing(
     end
     assign h_tc_signal=(h_count_reg==799);
     assign hcount=h_count_reg;
-    
+
+    //Verical counter (from 0 to 524 - 525 total lines per frame) 
     always_ff @(posedge clk) begin 
         if (rst) begin 
             v_count_reg<=0;
@@ -40,11 +44,15 @@ module vga_timing(
      end
      end
      assign vcount=v_count_reg;
-     
+
+     //Generating sync pulses 
+     //HSYNC width = 96 clock cycles
      assign hsync=(h_count_reg<96) ? 1'b0:1'b1;
+     //VSYNC width = 2 lines 
      assign vsync=(v_count_reg<2) ? 1'b0:1'b1;
-     
+    //Active region masking (640 x 480)
      assign h_active_sig=(h_count_reg>=144) && (h_count_reg<784);
      assign v_active_sig=(v_count_reg>=35) && (v_count_reg<515);
+     //Combined active flag
      assign vga_active=h_active_sig && v_active_sig;
 endmodule
