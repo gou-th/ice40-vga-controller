@@ -14,6 +14,8 @@ module vga_pixel_gen(
     
     logic [9:0] scroll_offset;
     logic [5:0] frame_timer;
+
+    //Update scroll offset every 64 frames 
     always_ff @(posedge clk) begin
         if (rst) begin
             scroll_offset <= 0;
@@ -27,10 +29,13 @@ module vga_pixel_gen(
     end
     logic [9:0] current_x;
     assign current_x = hcount_in + scroll_offset;
+
+    //Colour generation (Vertical)
     always_comb begin
         vga_r_out = 4'h0;
         vga_g_out = 4'h0;
-        vga_b_out = 4'h0;       
+        vga_b_out = 4'h0;
+        //Mapping to output colours only in visible araea 
         if (vga_active_in) begin
             case (current_x[9:8])
                 2'b00: begin 
